@@ -16,7 +16,7 @@ const adminApp = admin.initializeApp({
 
 const corsOption = {
   origin: '*',
-  credentials: true,
+  // credentials: true,
   optionsSuccessStatus: 200
 }
 
@@ -24,14 +24,8 @@ const PORT = process.env.PORT || 8000
 
 const app = express()
 
-app.use(Cors())
+app.use(Cors(corsOption));
 app.use(express.json())
-//set the request's mode to 'no - cors' to fetch the resource with CORS disabled.
-// app.use(function (req, res, next) {
-//   res.header("Access-Control-Allow-Origin", "*");
-//   res.header("Access-Control-Allow-Headers", "X-Requested-With");
-//   next();
-// });
 
 // routes
 app.get('/', (req, res) => {
