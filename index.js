@@ -22,6 +22,8 @@ const corsOption = {
   ],
   credentials: true,
   methods: 'POST',
+  allowedHeaders: ['Content-Type', 'Authorization', 'Accept', 'Origin', 'X-Requested-With', 'Access-Control-Allow-Origin', 'Access-Control-Allow-Credentials', 'Access-Control-Allow-Methods', 'Access-Control-Allow-Headers'],
+  preflightContinue: false,
   optionsSuccessStatus: 200
 }
 
