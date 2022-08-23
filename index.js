@@ -52,7 +52,7 @@ app.post('/send-custom-verification-email', async (req, res) => {
       .generateEmailVerificationLink(userEmail, actionCodeSettings)
 
     const template = await ejs.renderFile(
-      path = 'views/verify-email.ejs',
+      path = './views/verify-email.ejs',
       queries = {
         actionLink,
         randomNumber: Math.random()
