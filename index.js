@@ -61,6 +61,7 @@ app.post('/send-custom-verification-email', async (req, res) => {
     res.status(200).json({ message: 'Email successfully sent' })
   } catch (error) {
     const message = error.message
+    console.log(message);
     if (error.code === 'auth/user-not-found') {
       return res.status(404).json({ message })
     }
