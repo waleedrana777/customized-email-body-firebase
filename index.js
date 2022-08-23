@@ -6,7 +6,7 @@ const express = require('express')
 const Cors = require('cors')
 
 const admin = require("firebase-admin")
-const { getAuth } = require("firebase-admin/auth")
+const { getAuth, applyActionCode, } = require("firebase-admin/auth")
 const sendVerificationEmail = require('./sendEmail')
 
 // initialize Firebase Admin SDK
@@ -49,16 +49,23 @@ app.post('/send-custom-verification-email', async (req, res) => {
   try {
     const actionLink = await getAuth()
       .generateEmailVerificationLink(userEmail, actionCodeSettings)
-    const path = process.cwd() + '/views/verification-email.ejs'
 
-    const template = await ejs.renderFile(
-      path,
-      {
-        actionLink,
-        randomNumber: Math.random()
-      })
-    await sendVerificationEmail(userEmail, template, actionLink)
-    res.status(200).json({ message: 'Email successfully sent' })
+    applyActionCode(auth, actionCode).then(async (resp) => {
+      const { email } = resp.user
+      const path = process.cwd() + '/views/verification-email.ejs'
+      const template = await ejs.renderFile(
+        path,
+        {
+          actionLink,
+          randomNumber: Math.random()
+        })
+      await sendVerificationEmail(userEmail, template, actionLink)
+
+    }).catch((err) => {
+      console.log("Could not verify user: ", err.userInfo)
+    }).finally(() => {
+      res.status(200).json({ message: 'Email successfully sent' })
+    });
   } catch (error) {
     const message = error.message
     console.log(message);
