@@ -1,10 +1,9 @@
 const dotenv = require('./dotenvConfig')()
-console.log(process.env.PROJECT_ID);
+const ejs = require('ejs')
 const serviceAccount = require('./serviceAccountKey.js')
 
 const express = require('express')
 const Cors = require('cors')
-const ejs = require('ejs')
 
 const admin = require("firebase-admin")
 const { getAuth } = require("firebase-admin/auth")
@@ -52,7 +51,7 @@ app.post('/send-custom-verification-email', async (req, res) => {
       .generateEmailVerificationLink(userEmail, actionCodeSettings)
 
     const template = await ejs.renderFile(
-      './views/verify-email.ejs',
+      'views/verify-email.ejs',
       {
         actionLink,
         randomNumber: Math.random()
