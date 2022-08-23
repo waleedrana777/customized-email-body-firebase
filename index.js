@@ -35,7 +35,7 @@ app.get('/', (req, res) => {
 app.post('/send-custom-verification-email', async (req, res) => {
   const { userEmail, redirectUrl } = req.body
   //regex for email
-  const emailValidate = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/ 
+  const emailValidate = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
 
   if (!userEmail?.match(emailValidate)) {
     return res.status(401).json({ message: 'Invalid email' })
@@ -51,7 +51,7 @@ app.post('/send-custom-verification-email', async (req, res) => {
     const actionLink = await getAuth()
       .generateEmailVerificationLink(userEmail, actionCodeSettings)
 
-    const template = await ejs.renderFile('views/verify-email.ejs', {
+    const template = await ejs.renderFile('./views/verify-email.ejs', {
       actionLink,
       randomNumber: Math.random()
     })
