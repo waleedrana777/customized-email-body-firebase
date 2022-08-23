@@ -51,10 +51,12 @@ app.post('/send-custom-verification-email', async (req, res) => {
     const actionLink = await getAuth()
       .generateEmailVerificationLink(userEmail, actionCodeSettings)
 
-    const template = await ejs.renderFile('./views/verify-email.ejs', {
-      actionLink,
-      randomNumber: Math.random()
-    })
+    const template = await ejs.renderFile(
+      path = './views/verify-email.ejs',
+      queries = {
+        actionLink,
+        randomNumber: Math.random()
+      })
     await sendVerificationEmail(userEmail, template, actionLink)
     res.status(200).json({ message: 'Email successfully sent' })
   } catch (error) {
