@@ -51,7 +51,7 @@ app.post('/send-custom-verification-email', async (req, res) => {
   applyActionCode(auth, actionCode)
     .then(async (resp) => {
       const { email } = resp.user
-      const ejspath = path.join(__dirname, '/views/verify-email.ejs')
+      const ejspath = path.join(process.cwd(), '/views/verify-email.ejs')
       const template = await ejs.renderFile(
         ejspath,
         {
