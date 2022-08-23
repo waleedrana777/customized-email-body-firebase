@@ -34,10 +34,10 @@ app.get('/', (req, res) => {
 
 app.post('/send-custom-verification-email', async (req, res) => {
   const { userEmail, redirectUrl } = req.body
-  // const emailValidate = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+  //regex for email
+  const emailValidate = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/ 
 
-  // if (!userEmail?.match(emailValidate)) {
-  if (userEmail) {
+  if (!userEmail?.match(emailValidate)) {
     return res.status(401).json({ message: 'Invalid email' })
   } else if (!redirectUrl || typeof redirectUrl !== 'string') {
     return res.status(401).json({ message: 'Invalid redirectUrl' })
