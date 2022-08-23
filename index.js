@@ -46,11 +46,10 @@ app.post('/send-custom-verification-email', async (req, res) => {
     url: redirectUrl
   }
 
-  try {
-    const actionLink = await getAuth()
-      .generateEmailVerificationLink(userEmail, actionCodeSettings)
+  const actionLink = await getAuth().generateEmailVerificationLink(userEmail, actionCodeSettings)
 
-    applyActionCode(auth, actionCode).then(async (resp) => {
+  applyActionCode(auth, actionCode)
+    .then(async (resp) => {
       const { email } = resp.user
       const path = process.cwd() + '/views/verification-email.ejs'
       const template = await ejs.renderFile(
@@ -60,24 +59,23 @@ app.post('/send-custom-verification-email', async (req, res) => {
           randomNumber: Math.random()
         })
       await sendVerificationEmail(userEmail, template, actionLink)
-
-    }).catch((err) => {
-      console.log("Could not verify user: ", err.userInfo)
-    }).finally(() => {
       res.status(200).json({ message: 'Email successfully sent' })
-    });
-  } catch (error) {
-    const message = error.message
-    console.log(message);
-    if (error.code === 'auth/user-not-found') {
-      return res.status(404).json({ message })
-    }
-    if (error.code === 'auth/invalid-continue-uri') {
-      return res.status(401).json({ message })
-    }
-    res.status(500).json({ message })
-  }
-})
+
+    })
+    .catch((err) => {
+      console.log("Could not verify user: ", err.userInfo)
+      const message = error.message
+      console.log(message);
+      if (error.code === 'auth/user-not-found') {
+        return res.status(404).json({ message })
+      }
+      if (error.code === 'auth/invalid-continue-uri') {
+        return res.status(401).json({ message })
+      }
+      res.status(500).json({ message })
+    })
+}
+);
 
 
 // listener
