@@ -1,7 +1,7 @@
 const dotenv = require('./dotenvConfig')()
 const ejs = require('ejs')
 const serviceAccount = require('./serviceAccountKey.js')
-
+const path = require('path');
 const express = require('express')
 const Cors = require('cors')
 
@@ -19,12 +19,21 @@ const corsOption = {
   optionsSuccessStatus: 200
 }
 
+
+
+
 const PORT = process.env.PORT || 8000
 
 const app = express()
 
 app.use(Cors(corsOption))
 app.use(express.json())
+//set the request's mode to 'no - cors' to fetch the resource with CORS disabled.
+app.use(function (req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  next();
+});
 
 // routes
 app.get('/', (req, res) => {
