@@ -15,7 +15,7 @@ const adminApp = admin.initializeApp({
 })
 
 const corsOption = {
-  origin: true,
+  origin: '*',
   optionsSuccessStatus: 200
 }
 
