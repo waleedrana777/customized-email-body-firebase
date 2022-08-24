@@ -2,10 +2,10 @@
 	"name": "customisedemail-firebase",
 	"version": "1.0.0",
 	"description": "",
-	"main": "app.js",
+	"main": "index.js",
 	"scripts": {
-		"dev": "nodemon app.js",
-		"start": "node app.js"
+		"dev": "nodemon index.js",
+		"start": "node index.js"
 	},
 	"author": "Taminoturoko Briggs",
 	"license": "ISC",
