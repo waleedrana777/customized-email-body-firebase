@@ -15,11 +15,7 @@ const adminApp = admin.initializeApp({
 })
 
 const corsOption = {
-  origin: 'https://firebase-auth-and-crud.vercel.app/',
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'Accept', 'Origin', 'X-Requested-With', 'Access-Control-Allow-Origin', 'Access-Control-Allow-Credentials', 'Access-Control-Allow-Methods', 'Access-Control-Allow-Headers'],
-  preflightContinue: false,
+  origin: true,
   optionsSuccessStatus: 200
 }
 
