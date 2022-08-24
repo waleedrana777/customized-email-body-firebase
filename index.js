@@ -65,12 +65,12 @@ app.post('/send-custom-verification-email', async (req, res) => {
     .catch(error => {
       // const message = error.message
       if (error.code === 'auth/user-not-found') {
-        return res.status(404).json({ error: error.message });
+        return res.status(404).json({ error });
       }
       if (error.code === 'auth/invalid-continue-uri') {
-        return res.status(401).json({ error: error.message });
+        return res.status(401).json({ error });
       }
-      res.status(500).json({ error: error.message })
+      res.status(500).json({ error })
     })
 }
 );
