@@ -70,7 +70,7 @@ app.post('/send-custom-verification-email', async (req, res) => {
       if (error.code === 'auth/invalid-continue-uri') {
         return res.status(401).json({ error });
       }
-      res.status(500).json({ error })
+      res.json({ error })
     })
 }
 );
