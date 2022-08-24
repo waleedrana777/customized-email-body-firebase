@@ -80,3 +80,5 @@ app.post('/send-custom-verification-email', async (req, res) => {
 app.listen(PORT, () => {
   console.log(`App is listening on port ${PORT}`)
 })
+
+export default app;
