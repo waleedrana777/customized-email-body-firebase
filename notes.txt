@@ -1,0 +1,2 @@
+.env.local works for this setup
+next and react env vars need to be prefixed
