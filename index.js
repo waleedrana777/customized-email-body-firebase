@@ -59,7 +59,7 @@ app.post('/send-custom-verification-email', async (req, res) => {
   }
 
   //generate custom email verification link
-  const actionLink = await getAuth().generateEmailVerificationLink(userEmail, actionCodeSettings)
+  var actionLink = await getAuth().generateEmailVerificationLink(userEmail, actionCodeSettings)
 
   // appending email of the user to the link
   actionLink = actionLink + `&email=${userEmail}`;
