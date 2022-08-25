@@ -43,6 +43,7 @@ app.get('/', (req, res) => {
 })
 
 app.post('/send-custom-verification-email', async (req, res) => {
+
   const { userEmail, redirectUrl } = req.body
   //regex for email
   const emailValidate = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
@@ -59,10 +60,6 @@ app.post('/send-custom-verification-email', async (req, res) => {
 
   const actionLink = await getAuth().generateEmailVerificationLink(userEmail, actionCodeSettings)
 
-  //put it in redirectUrl handler in next
-  // applyActionCode(auth, actionCode)
-  // .then(async (resp) => {
-  // const { email } = resp.user
   const ejspath = path.join(process.cwd(), 'views/verify-email.ejs')
   const template = await ejs.renderFile(
     ejspath,
@@ -71,22 +68,9 @@ app.post('/send-custom-verification-email', async (req, res) => {
       randomNumber: Math.random()
     });
   await sendVerificationEmail(userEmail, template, actionLink)
-  res.status(200).json({ message: 'Email successfully sent' })
+  res.status(200).json({ message: 'Email successfully sent' });
 
 });
-// .catch(error => {
-//   const message = error.message
-//   if (error.code === 'auth/user-not-found') {
-//     return res.status(404).json({ message });
-//   }
-//   if (error.code === 'auth/invalid-continue-uri') {
-//     return res.status(401).json({ message });
-//   }
-//   res.status(500).json({ message })
-// })
-// }
-// );
-
 
 // listener
 app.listen(PORT, () => {
