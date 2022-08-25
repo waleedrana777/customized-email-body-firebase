@@ -62,8 +62,9 @@ app.post('/send-custom-verification-email', async (req, res) => {
   //generate custom email verification link
   var actionLink = await getAuth().generateEmailVerificationLink(userEmail, actionCodeSettings)
 
-  // appending email of the user to the link
-  actionLink = actionLink + `&email=${userEmail}`;
+  //encode email in uri and add to actionLink
+  const encodedEmail = encodeURIComponent(userEmail)
+  actionLink = `${actionLink}&email=${encodedEmail}`
 
   //path to the template
   const tempPath = path.join(process.cwd(), 'views/verify-email.ejs')
