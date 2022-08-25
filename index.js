@@ -18,8 +18,9 @@ const auth = adminApp.auth();
 const corsOption = {
   origin: '*',
   optionsSuccessStatus: 200,
-  methods: 'GET, POST, PUT, DELETE, OPTIONS',
-  allowedHeaders: 'Content-Type, Authorization, Content-Length, X-Requested-With'
+  credentials: true,
+  // methods: 'GET, POST, PUT, DELETE, OPTIONS',
+  // allowedHeaders: 'Content-Type, Authorization, Content-Length, X-Requested-With'
 }
 
 const PORT = process.env.PORT || 8000
