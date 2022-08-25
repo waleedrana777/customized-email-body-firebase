@@ -58,11 +58,18 @@ app.post('/send-custom-verification-email', async (req, res) => {
     url: redirectUrl
   }
 
+  //generate custom email verification link
   const actionLink = await getAuth().generateEmailVerificationLink(userEmail, actionCodeSettings)
 
-  const ejspath = path.join(process.cwd(), 'views/verify-email.ejs')
+  // appending email of the user to the link
+  actionLink = actionLink + `&email=${userEmail}`;
+
+  //path to the template
+  const tempPath = path.join(process.cwd(), 'views/verify-email.ejs')
+
+  //rendering the email to be sent
   const template = await ejs.renderFile(
-    ejspath,
+    tempPath,
     {
       actionLink,
       randomNumber: Math.random()

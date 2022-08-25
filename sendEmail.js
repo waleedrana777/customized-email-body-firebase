@@ -7,7 +7,7 @@ const VERIFIED_EMAIL = process.env.VERIFIED_SENDER
 
 sgMail.setApiKey(SENDGRID_KEY)
 
-module.exports = function sendVerificationEmail(userEmail, template, actionLink){
+module.exports = function sendVerificationEmail(userEmail, template, actionLink) {
   const message = {
     from: {
       name: 'Custom verify',
